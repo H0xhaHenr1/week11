@@ -1,98 +1,58 @@
 package com.lhind.internship.jpaintro.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import com.lhind.internship.jpaintro.model.enums.BookingStatus;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "booking", uniqueConstraints = {
-        @UniqueConstraint(name = "unique_booking_code_constraint", columnNames = {"booking_number"})
-})
+@Table(name = "booking")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "booking_number", unique = true, nullable = false)
-    private String bookingNumber;
+    @Column(name = "bookingdate", nullable = false)
+    @Temporal(value = TemporalType.DATE)
+    private Date bookingDate;
 
-    @Column(name = "start_date")
-    private Date startDate;
-
-    @Column(name = "end_date")
-    private Date endDate;
-
-    private String bookingStatus;
-
-    private Double cost;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private BookingStatus bookingStatus;
 
     public Long getId() {
         return id;
     }
 
-    public void setId(final Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getBookingNumber() {
-        return bookingNumber;
+    public Date getBookingDate() {
+        return bookingDate;
     }
 
-    public void setBookingNumber(final String bookingNumber) {
-        this.bookingNumber = bookingNumber;
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(final Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(final Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getBookingStatus() {
+    public BookingStatus getBookingStatus() {
         return bookingStatus;
     }
 
-    public void setBookingStatus(final String bookingStatus) {
+    public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;
     }
 
-    public Double getCost() {
-        return cost;
-    }
 
-    public void setCost(final Double cost) {
-        this.cost = cost;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(final Employee employee) {
-        this.employee = employee;
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", bookingEndDate=" + bookingDate +
+                ", bookingStatus=" + bookingStatus +
+                '}';
     }
 }
