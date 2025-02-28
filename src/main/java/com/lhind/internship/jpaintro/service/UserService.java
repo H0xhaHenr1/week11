@@ -21,11 +21,19 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> getUserBydIdWithDetails(Long id){
+        return userRepository.findUserWithDetailsById(id);
+    }
+
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    public List<User> getAllUserWithDetails(){
+        return userRepository.findAllUsersWithDetails();
     }
 }

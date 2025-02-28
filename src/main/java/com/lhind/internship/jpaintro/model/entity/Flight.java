@@ -3,7 +3,9 @@ package com.lhind.internship.jpaintro.model.entity;
 import com.lhind.internship.jpaintro.model.enums.FlightStatus;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "flights")
@@ -34,6 +36,9 @@ public class Flight {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status", nullable = false)
     private FlightStatus status;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings = new ArrayList<>();
 
     public String getOrigin() {
         return origin;
